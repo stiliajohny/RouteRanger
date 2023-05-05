@@ -44,13 +44,6 @@
 			"**/node_modules": true,
 			"**/.expo": true,
 			"**/.vscode": true,
-		},
-		"[html]": {
-			"editor.tabSize": 4
-		},
-		"[javascript]": {
-			"editor.tabSize": 2
 		}
 	}
-}
 }

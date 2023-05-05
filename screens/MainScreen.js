@@ -4,7 +4,6 @@ import { View, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
 import { Ionicons } from '@expo/vector-icons'
-import PropTypes from 'prop-types'
 
 const initialRegion = {
   latitudeDelta: 0.00922,
@@ -13,16 +12,11 @@ const initialRegion = {
 const maxZoomDelta = 0.0005
 const minZoomDelta = 50
 
-MainScreen.propTypes = {
-  navigation: PropTypes.object.isRequired
-}
-
 export default function MainScreen ({ navigation }) {
   const mapRef = useRef(null)
   const [region, setRegion] = useState(null)
   const [location, setLocation] = useState(null)
   const [shouldRecenter, setShouldRecenter] = useState(true)
-  const [heading, setHeading] = useState(null)
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -61,7 +55,6 @@ export default function MainScreen ({ navigation }) {
 
           setRegion(deviceRegion)
         }
-        setHeading(deviceLocation.coords.heading) // Add this line
       }
 
       unsubscribe = await Location.watchPositionAsync(
@@ -122,48 +115,39 @@ export default function MainScreen ({ navigation }) {
   }
 
   return (
-  <View style={styles.container}>
-    {region && (
-      <MapView
-        style={styles.map}
-        ref={mapRef}
-        rotateEnabled={true}
-        camera={{
-          center: {
-            latitude: location?.coords.latitude || region?.latitude,
-            longitude: location?.coords.longitude || region?.longitude
-          },
-          pitch: 0,
-          heading: heading || 0,
-          altitude: 5000,
-          zoom: 18
-        }}
-        onRegionChangeComplete={onRegionChangeComplete}
-      >
-        {location && (
-          <Marker
-            coordinate={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude
-            }}
-          >
-            <Image source={require('../assets/marker.png')} style={{ width: 32, height: 32 }} />
-          </Marker>
-        )}
-      </MapView>
-    )}
-    <View style={styles.controls}>
-      <TouchableOpacity style={styles.controlButton} onPress={zoomIn}>
-        <Ionicons name="add" size={24} color="black" />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.controlButton} onPress={zoomOut}>
-        <Ionicons name="remove" size={24} color="black" />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.controlButton} onPress={recenter}>
-        <Ionicons name="navigate" size={24} color="black" />
-      </TouchableOpacity>
-    </View>
-  </View>
+        <View style={styles.container}>
+            {region && (
+                <MapView
+                    style={styles.map}
+                    ref={mapRef}
+                    region={region}
+                    onRegionChangeComplete={onRegionChangeComplete}
+                >
+                    {location && (
+                        <Marker
+                            coordinate={{
+                              latitude: location.coords.latitude,
+                              longitude: location.coords.longitude
+                            }}
+                            title="My Location"
+                        >
+                            <Image source={require('../assets/marker.png')} style={{ width: 32, height: 32 }} />
+                        </Marker>
+                    )}
+                </MapView>
+            )}
+            <View style={styles.controls}>
+                <TouchableOpacity style={styles.controlButton} onPress={zoomIn}>
+                    <Ionicons name="add" size={24} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.controlButton} onPress={zoomOut}>
+                    <Ionicons name="remove" size={24} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.controlButton} onPress={recenter}>
+                    <Ionicons name="navigate" size={24} color="black" />
+                </TouchableOpacity>
+            </View>
+        </View>
   )
 }
 

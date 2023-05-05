@@ -1,0 +1,56 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"deepscan.enable": true,
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true,
+		"editor.formatOnType": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true
+		},
+		"eslint.alwaysShowStatus": true,
+		"eslint.format.enable": true,
+		"eslint.lintTask.enable": true,
+		"eslint.options": {
+			"extensions": [
+				".js",
+				".jsx",
+				".ts",
+				".tsx"
+			]
+		},
+		"eslint.run": "onType",
+		"eslint.validate": [
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact"
+		],
+		"eslint.workingDirectories": [
+			{
+				"mode": "auto"
+			}
+		],
+		"files.autoSave": "onFocusChange",
+		// dont show files
+		"files.exclude": {
+			"**/.git": true,
+			"**/.DS_Store": true,
+			"**/node_modules": true,
+			"**/.expo": true,
+			"**/.vscode": true,
+		},
+		"[html]": {
+			"editor.tabSize": 4
+		},
+		"[javascript]": {
+			"editor.tabSize": 2
+		}
+	}
+}
+}

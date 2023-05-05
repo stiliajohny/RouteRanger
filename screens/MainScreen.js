@@ -4,6 +4,7 @@ import { View, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
 import { Ionicons } from '@expo/vector-icons'
+import propTypes from 'prop-types'
 
 const initialRegion = {
   latitudeDelta: 0.00922,
@@ -13,6 +14,10 @@ const maxZoomDelta = 0.0005
 const minZoomDelta = 50
 
 export default function MainScreen ({ navigation }) {
+  MainScreen.propTypes = {
+    navigation: propTypes.object
+  }
+
   const mapRef = useRef(null)
   const [region, setRegion] = useState(null)
   const [location, setLocation] = useState(null)
@@ -20,16 +25,7 @@ export default function MainScreen ({ navigation }) {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: '',
-      headerLeft: () => (
-                <Ionicons
-                    name="settings-outline"
-                    size={24}
-                    color="black"
-                    style={{ marginLeft: 15 }}
-                    onPress={() => navigation.navigate('Settings')}
-                />
-      )
+      headerShown: false
     })
   }, [navigation])
 
@@ -145,6 +141,9 @@ export default function MainScreen ({ navigation }) {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.controlButton} onPress={recenter}>
                     <Ionicons name="navigate" size={24} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.controlButton} onPress={() => navigation.navigate('Settings')}>
+                    <Ionicons name="settings-outline" size={24} color="black" />
                 </TouchableOpacity>
             </View>
         </View>

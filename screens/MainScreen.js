@@ -1,6 +1,6 @@
 // screens/MainScreen.js
 import React, { useRef, useState, useEffect } from 'react'
-import { View, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, Alert, Image, Text } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
 import { Ionicons } from '@expo/vector-icons'
@@ -22,6 +22,15 @@ export default function MainScreen ({ navigation }) {
   const [region, setRegion] = useState(null)
   const [location, setLocation] = useState(null)
   const [shouldRecenter, setShouldRecenter] = useState(true)
+  const [speed, setSpeed] = useState(0)
+  const speedUnit = 'mph'
+
+  const calculateSpeed = (location) => {
+    // Calculate the speed based on the location
+    // For example:
+    const speed = location.coords.speed || 0
+    return speed
+  }
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -51,6 +60,9 @@ export default function MainScreen ({ navigation }) {
 
           setRegion(deviceRegion)
         }
+
+        const newSpeed = calculateSpeed(deviceLocation)
+        setSpeed(newSpeed)
       }
 
       unsubscribe = await Location.watchPositionAsync(
@@ -111,42 +123,51 @@ export default function MainScreen ({ navigation }) {
   }
 
   return (
-        <View style={styles.container}>
-            {region && (
-                <MapView
-                    style={styles.map}
-                    ref={mapRef}
-                    region={region}
-                    onRegionChangeComplete={onRegionChangeComplete}
-                >
-                    {location && (
-                        <Marker
-                            coordinate={{
-                              latitude: location.coords.latitude,
-                              longitude: location.coords.longitude
-                            }}
-                            title="My Location"
-                        >
-                            <Image source={require('../assets/marker.png')} style={{ width: 32, height: 32 }} />
-                        </Marker>
-                    )}
-                </MapView>
-            )}
-            <View style={styles.controls}>
-                <TouchableOpacity style={styles.controlButton} onPress={zoomIn}>
-                    <Ionicons name="add" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.controlButton} onPress={zoomOut}>
-                    <Ionicons name="remove" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.controlButton} onPress={recenter}>
-                    <Ionicons name="navigate" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.controlButton} onPress={() => navigation.navigate('Settings')}>
-                    <Ionicons name="settings-outline" size={24} color="black" />
-                </TouchableOpacity>
-            </View>
-        </View>
+  <View style={styles.container}>
+    {region && (
+      <MapView
+        style={styles.map}
+        ref={mapRef}
+        region={region}
+        onRegionChangeComplete={onRegionChangeComplete}
+      >
+        {location && (
+          <Marker
+            coordinate={{
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude
+            }}
+            title="My Location"
+          >
+            <Image source={require('../assets/marker.png')} style={{ width: 28, height: 28 }} />
+          </Marker>
+        )}
+      </MapView>
+    )}
+
+    {/* Speed button */}
+    <View style={styles.speedButtonContainer}>
+      <TouchableOpacity style={styles.speedButton}>
+        <Text style={styles.speedButtonText} >{speed.toFixed(1)} {'\n'} {speedUnit}</Text>
+      </TouchableOpacity>
+    </View>
+
+    {/* Control buttons */}
+    <View style={styles.controls}>
+      <TouchableOpacity style={styles.controlButton} onPress={zoomIn}>
+        <Ionicons name="add" size={24} color="black" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.controlButton} onPress={zoomOut}>
+        <Ionicons name="remove" size={24} color="black" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.controlButton} onPress={recenter}>
+        <Ionicons name="navigate" size={24} color="black" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.controlButton} onPress={() => navigation.navigate('Settings')}>
+        <Ionicons name="settings-outline" size={24} color="black" />
+      </TouchableOpacity>
+    </View>
+  </View>
   )
 }
 
@@ -174,5 +195,34 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
     elevation: 2
+  },
+  speedButtonContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: 'black',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+    elevation: 2
+  },
+
+  speedButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
+
+  speedButtonText: {
+    fontSize: 12
   }
 })

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "RouteRanger",
-    "slug": "RouteRanger",
+    "slug": "gps-location-share",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b9fe387a-8088-40f5-9fd8-7a7b282db499"
+      }
+    },
+    "owner": "stilia.johny"
   }
 }

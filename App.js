@@ -1,19 +1,19 @@
 // App.js
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import MainScreen from './screens/MainScreen';
-import SettingsScreen from './screens/SettingsScreen';
-import GeneralScreen from './screens/GeneralScreen';
-import MapDisplayScreen from './screens/MapDisplayScreen';
-import NavigationScreen from './screens/NavigationScreen';
-import VehicleTypeScreen from './screens/VehicleTypeScreen';
-import SpeedometerScreen from './screens/SpeedometerScreen';
-import AccountLoginScreen from './screens/AccountLoginScreen';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import MainScreen from './screens/mainScreen/MainScreen'
+import SettingsScreen from './screens/SettingsScreen'
+import GeneralScreen from './screens/GeneralScreen'
+import MapDisplayScreen from './screens/MapDisplayScreen'
+import NavigationScreen from './screens/NavigationScreen'
+import VehicleTypeScreen from './screens/VehicleTypeScreen'
+import SpeedometerScreen from './screens/SpeedometerScreen'
+import AccountLoginScreen from './screens/AccountLoginScreen'
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
-export default function App() {
+export default function App () {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Main">
@@ -27,5 +27,5 @@ export default function App() {
         <Stack.Screen name="Account and Login" component={AccountLoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }

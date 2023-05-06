@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { View, TouchableOpacity, Image, Text } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import styles from './MainScreenStyles'
 
-export default function MainScreenView ({
+export default function MainScreenView({
   region,
   location,
   onRegionChangeComplete,
@@ -16,7 +17,7 @@ export default function MainScreenView ({
   speedUnit
 }) {
   return (
-    <View style={styles.container}>
+    <View style={styles.mainContainer}>
       {region && (
         <MapView
           style={styles.map}
@@ -32,7 +33,7 @@ export default function MainScreenView ({
               title="My Location"
             >
               <Image
-                source={require('../../assets/marker.png')}
+                source={require('./assets/marker.png')}
                 style={{ width: 28, height: 28 }}
               />
             </Marker>
@@ -50,7 +51,7 @@ export default function MainScreenView ({
       </View>
 
       {/* Control buttons */}
-      <View style={styles.controls}>
+      <View style={styles.controlsContainer}>
         <TouchableOpacity style={styles.controlButton} onPress={zoomIn}>
           <Ionicons name="add" size={24} color="black" />
         </TouchableOpacity>

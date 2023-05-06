@@ -1,9 +1,7 @@
 // screens/MainScreen.js
 import React, { useRef, useState, useEffect } from 'react'
-import { View, TouchableOpacity, StyleSheet, Alert, Image, Text } from 'react-native'
-import MapView, { Marker } from 'react-native-maps'
+import { Alert } from 'react-native'
 import * as Location from 'expo-location'
-import { Ionicons } from '@expo/vector-icons'
 import propTypes from 'prop-types'
 import MainScreenView from './MainScreenView'
 
@@ -11,10 +9,10 @@ const initialRegion = {
   latitudeDelta: 0.00922,
   longitudeDelta: 0.00421
 }
-const maxZoomDelta = 0.0005
+const maxZoomDelta = 0.05
 const minZoomDelta = 50
 
-export default function MainScreen ({ navigation }) {
+export default function MainScreen({ navigation }) {
   MainScreen.propTypes = {
     navigation: propTypes.object
   }
@@ -24,7 +22,6 @@ export default function MainScreen ({ navigation }) {
   const [location, setLocation] = useState(null)
   const [shouldRecenter, setShouldRecenter] = useState(true)
   const [speed, setSpeed] = useState(0)
-  const speedUnit = 'mph'
 
   const calculateSpeed = (location) => {
     // Calculate the speed based on the location
@@ -94,7 +91,11 @@ export default function MainScreen ({ navigation }) {
       latitudeDelta: region.latitudeDelta / 2,
       longitudeDelta: region.longitudeDelta / 2
     }
-    mapRef.current.animateToRegion(newRegion, 500)
+
+    if (mapRef.current) {
+      mapRef.current.animateToRegion(newRegion, 500)
+    }
+
     setRegion(newRegion)
   }
 
@@ -109,7 +110,9 @@ export default function MainScreen ({ navigation }) {
       latitudeDelta: region.latitudeDelta * 2,
       longitudeDelta: region.longitudeDelta * 2
     }
-    mapRef.current.animateToRegion(newRegion, 500)
+    if (mapRef.current) {
+      mapRef.current.animateToRegion(newRegion, 500)
+    }
     setRegion(newRegion)
   }
 
@@ -123,17 +126,19 @@ export default function MainScreen ({ navigation }) {
     setShouldRecenter(false)
   }
 
+  const heading = location ? location.coords.heading : 0
+
   return (
-  <MainScreenView
-    region={region}
-    location={location}
-    onRegionChangeComplete={onRegionChangeComplete}
-    zoomIn={zoomIn}
-    zoomOut={zoomOut}
-    recenter={recenter}
-    navigation={navigation}
-    speed={speed}
-    speedUnit={speedUnit}
-  />
+    <MainScreenView
+      region={region}
+      location={location}
+      onRegionChangeComplete={onRegionChangeComplete}
+      zoomIn={zoomIn}
+      zoomOut={zoomOut}
+      recenter={recenter}
+      navigation={navigation}
+      speed={speed}
+      heading={heading}
+    />
   )
 }

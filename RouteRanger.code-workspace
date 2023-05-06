@@ -44,6 +44,9 @@
 			"**/node_modules": true,
 			"**/.expo": true,
 			"**/.vscode": true,
+		},
+		"[javascript]": {
+			"editor.defaultFormatter": "vscode.typescript-language-features"
 		}
 	}
 }

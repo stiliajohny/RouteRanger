@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1
   },
   map: {
     flex: 1
   },
-  controls: {
+  controlsContainer: {
     position: 'absolute',
     bottom: 20,
     right: 20
@@ -20,37 +20,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: 'black',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
+    shadowOpacity: 1,
+    shadowOffset: { width: 3, height: 5 },
+    shadowRadius: 5,
     elevation: 2
   },
   speedButtonContainer: {
     position: 'absolute',
     bottom: 20,
-    left: 20,
-    width: 120,
-    height: 120,
-    borderRadius: 600,
+    left: 20
+  },
+  speedButton: {
     backgroundColor: 'white',
+    borderRadius: 50,
+    padding: 10,
+    marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: 'black',
-    shadowOpacity: 0.7,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 9,
+    shadowOpacity: 1,
+    shadowOffset: { width: 3, height: 5 },
+    shadowRadius: 5,
     elevation: 2
   },
-  speedButton: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center'
-  },
   speedButtonText: {
-    fontSize: 19,
+    fontSize: 14,
     fontStyle: 'italic',
     fontWeight: 'bold',
     textAlign: 'center'

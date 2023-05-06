@@ -2,14 +2,14 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import MainScreen from './screens/mainScreen/MainScreen'
-import SettingsScreen from './screens/SettingsScreen'
-import GeneralScreen from './screens/GeneralScreen'
-import MapDisplayScreen from './screens/MapDisplayScreen'
-import NavigationScreen from './screens/NavigationScreen'
-import VehicleTypeScreen from './screens/VehicleTypeScreen'
-import SpeedometerScreen from './screens/SpeedometerScreen'
-import AccountLoginScreen from './screens/AccountLoginScreen'
+import MainScreen from './src/screens/mainScreen/MainScreen'
+import SettingsScreen from './src/screens/SettingsScreen'
+import GeneralScreen from './src/screens/GeneralScreen'
+import MapDisplayScreen from './src/screens/MapDisplayScreen'
+import NavigationScreen from './src/screens/NavigationScreen'
+import VehicleTypeScreen from './src/screens/VehicleTypeScreen'
+import SpeedometerScreen from './src/screens/SpeedometerScreen'
+import AccountLoginScreen from './src/screens/AccountLoginScreen'
 
 const Stack = createStackNavigator()
 

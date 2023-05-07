@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useState } from 'react'
 import { View, TouchableOpacity, Image, Text } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import styles from './MainScreenStyles'
-import SpeedToggleButton from './SpeedToggleButton' // Import the new component
+import { SPEED_UNITS, convertSpeed } from './speedToggleLogic' // Import the speed toggle logic
 
 const MARKER_IMAGE = require('./assets/marker.png')
 const MARKER_TITLE = 'My Location'
@@ -17,9 +17,17 @@ export default function MainScreenView({
   zoomOut,
   recenter,
   navigation,
-  speed,
-  speedUnit
+  speed
 }) {
+  const [speedUnitIndex, setSpeedUnitIndex] = useState(0)
+
+  const toggleSpeedUnit = () => {
+    setSpeedUnitIndex((speedUnitIndex + 1) % SPEED_UNITS.length)
+  }
+
+  const currentSpeedUnit = SPEED_UNITS[speedUnitIndex]
+  const displayedSpeed = convertSpeed(speed, currentSpeedUnit)
+
   return (
     <View style={styles.mainContainer}>
       {region && (
@@ -36,23 +44,26 @@ export default function MainScreenView({
               }}
               title={MARKER_TITLE}
             >
-              <Image
-                source={MARKER_IMAGE}
-                style={styles.markerImage}
-              />
+              <Image source={MARKER_IMAGE} style={styles.markerImage} />
             </Marker>
           )}
         </MapView>
       )}
 
       {/* Speed button */}
-      {/* Speed button */}
       <View style={styles.speedButtonContainer}>
-        <SpeedToggleButton
+        <TouchableOpacity
           style={styles.speedButton}
-          speed={speed}
-        />
+          onPress={toggleSpeedUnit}
+        >
+          <Text>
+            <Text style={styles.speedText}>{displayedSpeed.toFixed(0)}</Text>
+            {' '}
+            <Text style={styles.speedUnitText}>{currentSpeedUnit}</Text>
+          </Text>
+        </TouchableOpacity>
       </View>
+
       {/* Control buttons */}
       <View style={styles.controlsContainer}>
         <TouchableOpacity style={styles.controlButton} onPress={zoomIn}>
@@ -64,7 +75,9 @@ export default function MainScreenView({
         <TouchableOpacity style={styles.controlButton} onPress={recenter}>
           <Ionicons name="navigate" style={styles.buttonsText} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.controlButton} onPress={() => navigation.navigate('Settings')}
+        <TouchableOpacity
+          style={styles.controlButton}
+          onPress={() => navigation.navigate('Settings')}
         >
           <Ionicons name="settings-outline" style={styles.buttonsText} />
         </TouchableOpacity>

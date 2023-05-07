@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { View, TouchableOpacity, Image, Text } from 'react-native'
-import MapView, { Marker } from 'react-native-maps'
+// import MapView, { Marker } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import styles from './MainScreenStyles'
 import { SPEED_UNITS, convertSpeed } from './speedToggleLogic' // Import the speed toggle logic
+import MapView, { Marker, UrlTile } from 'react-native-maps'
 
 const MARKER_IMAGE = require('./assets/marker.png')
 const MARKER_TITLE = 'My Location'
@@ -36,6 +37,10 @@ export default function MainScreenView({
           region={region}
           onRegionChangeComplete={onRegionChangeComplete}
         >
+          <UrlTile
+            urlTemplate="https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png"
+            zIndex={1}
+          />
           {location && (
             <Marker
               coordinate={{

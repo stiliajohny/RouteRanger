@@ -4,8 +4,12 @@ import { View, TouchableOpacity, Image, Text } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import styles from './MainScreenStyles'
+import SpeedToggleButton from './SpeedToggleButton' // Import the new component
 
-export default function MainScreenView ({
+const MARKER_IMAGE = require('./assets/marker.png')
+const MARKER_TITLE = 'My Location'
+
+export default function MainScreenView({
   region,
   location,
   onRegionChangeComplete,
@@ -30,11 +34,10 @@ export default function MainScreenView ({
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude
               }}
-              // title="My Location" //TODO make it a variable that will set from settings
-
+              title={MARKER_TITLE}
             >
               <Image
-                source={require('./assets/marker.png')}
+                source={MARKER_IMAGE}
                 style={styles.markerImage}
               />
             </Marker>
@@ -43,14 +46,13 @@ export default function MainScreenView ({
       )}
 
       {/* Speed button */}
+      {/* Speed button */}
       <View style={styles.speedButtonContainer}>
-        <TouchableOpacity style={styles.speedButton}>
-          <Text style={styles.buttonsText}>
-            {speed.toFixed(0)}
-          </Text>
-        </TouchableOpacity>
+        <SpeedToggleButton
+          style={styles.speedButton}
+          speed={speed}
+        />
       </View>
-
       {/* Control buttons */}
       <View style={styles.controlsContainer}>
         <TouchableOpacity style={styles.controlButton} onPress={zoomIn}>

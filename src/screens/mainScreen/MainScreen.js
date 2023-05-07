@@ -66,7 +66,7 @@ export default function MainScreen({ navigation }) {
       unsubscribe = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.High,
-          timeInterval: 10, // Update location every 1000 ms
+          timeInterval: 10,
           distanceInterval: 0
         },
         callback
@@ -126,7 +126,8 @@ export default function MainScreen({ navigation }) {
     setShouldRecenter(false)
   }
 
-  const heading = location ? location.coords.heading : 0
+  // write a function that will take the speed and toggle between km/h and mph m/s
+  // /this function will a also set the speedUnit variable and the speed variable
 
   return (
     <MainScreenView
@@ -138,7 +139,7 @@ export default function MainScreen({ navigation }) {
       recenter={recenter}
       navigation={navigation}
       speed={speed}
-      heading={heading}
+      speedUnit="km/h"
     />
   )
 }

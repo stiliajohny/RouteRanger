@@ -5,7 +5,7 @@ import MapView, { Marker } from 'react-native-maps'
 import { Ionicons } from '@expo/vector-icons'
 import styles from './MainScreenStyles'
 
-export default function MainScreenView({
+export default function MainScreenView ({
   region,
   location,
   onRegionChangeComplete,
@@ -30,11 +30,12 @@ export default function MainScreenView({
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude
               }}
-              title="My Location"
+              // title="My Location" //TODO make it a variable that will set from settings
+
             >
               <Image
                 source={require('./assets/marker.png')}
-                style={{ width: 28, height: 28 }}
+                style={styles.markerImage}
               />
             </Marker>
           )}
@@ -44,8 +45,8 @@ export default function MainScreenView({
       {/* Speed button */}
       <View style={styles.speedButtonContainer}>
         <TouchableOpacity style={styles.speedButton}>
-          <Text style={styles.speedButtonText}>
-            {speed.toFixed(1)} {'\n'} {speedUnit}
+          <Text style={styles.buttonsText}>
+            {speed.toFixed(0)}
           </Text>
         </TouchableOpacity>
       </View>
@@ -53,19 +54,17 @@ export default function MainScreenView({
       {/* Control buttons */}
       <View style={styles.controlsContainer}>
         <TouchableOpacity style={styles.controlButton} onPress={zoomIn}>
-          <Ionicons name="add" size={24} color="black" />
+          <Ionicons name="add" style={styles.buttonsText} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.controlButton} onPress={zoomOut}>
-          <Ionicons name="remove" size={24} color="black" />
+          <Ionicons name="remove" style={styles.buttonsText} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.controlButton} onPress={recenter}>
-          <Ionicons name="navigate" size={24} color="black" />
+          <Ionicons name="navigate" style={styles.buttonsText} />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.controlButton}
-          onPress={() => navigation.navigate('Settings')}
+        <TouchableOpacity style={styles.controlButton} onPress={() => navigation.navigate('Settings')}
         >
-          <Ionicons name="settings-outline" size={24} color="black" />
+          <Ionicons name="settings-outline" style={styles.buttonsText} />
         </TouchableOpacity>
       </View>
     </View>

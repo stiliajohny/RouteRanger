@@ -66,7 +66,7 @@ export default function MainScreen({ navigation }) {
       unsubscribe = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.High,
-          timeInterval: 1000, // Update location every 1000 ms
+          timeInterval: 10, // Update location every 1000 ms
           distanceInterval: 0
         },
         callback

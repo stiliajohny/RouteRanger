@@ -5,6 +5,12 @@
 		}
 	],
 	"settings": {
+		// disable wrap
+		"editor.wordWrap": "off",
+		// minimap auto hide
+		"editor.minimap.enabled": false,
+		// minimap on right
+		"editor.minimap.side": "right",
 		"deepscan.enable": true,
 		"editor.formatOnSave": true,
 		"editor.formatOnPaste": true,
@@ -45,8 +51,5 @@
 			"**/.expo": true,
 			"**/.vscode": true,
 		},
-		"[javascript]": {
-			"editor.defaultFormatter": "vscode.typescript-language-features"
-		}
 	}
 }

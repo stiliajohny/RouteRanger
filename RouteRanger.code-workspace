@@ -18,7 +18,6 @@
 		"editor.codeActionsOnSave": {
 			"source.fixAll.eslint": true
 		},
-		"eslint.alwaysShowStatus": true,
 		"eslint.format.enable": true,
 		"eslint.lintTask.enable": true,
 		"eslint.options": {
@@ -55,5 +54,39 @@
 			// add tab size of 8 spaces
 			"editor.tabSize": 8,
 		},
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [],
+		"compounds": []
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Run IOS",
+				"runOptions": {
+					"runOn": "folderOpen"
+				},
+				"command": "npm",
+				"type": "shell",
+				"args": [
+					"run",
+					"ios"
+				],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+			}
+		]
+	},
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+			"esbenp.prettier-vscode",
+		]
 	}
 }

@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import styles from './MainScreenStyles'
 import { SPEED_UNITS, convertSpeed } from './speedToggleLogic'
-import MapView, { Marker, UrlTile, Polyline } from 'react-native-maps'
+import MapView, { Marker, Polyline } from 'react-native-maps'
 
 const MARKER_IMAGE = require('./assets/marker.png')
 
@@ -44,10 +44,6 @@ export default function MainScreenView({
           region={region}
           onRegionChangeComplete={onRegionChangeComplete}
         >
-          <UrlTile
-            urlTemplate="https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png"
-            zIndex={1}
-          />
           {location && (
             <Marker
               coordinate={{

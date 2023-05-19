@@ -1,4 +1,3 @@
-// App.js
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -10,10 +9,13 @@ import NavigationScreen from './src/screens/NavigationScreen'
 import VehicleTypeScreen from './src/screens/VehicleTypeScreen'
 import SpeedometerScreen from './src/screens/SpeedometerScreen'
 import AccountLoginScreen from './src/screens/AccountLoginScreen'
+import DeveloperScreen from './src/screens/DeveloperScreen'
+
+
 
 const Stack = createStackNavigator()
 
-export default function App () {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Main">
@@ -25,6 +27,7 @@ export default function App () {
         <Stack.Screen name="Vehicle Type" component={VehicleTypeScreen} />
         <Stack.Screen name="Speedometer" component={SpeedometerScreen} />
         <Stack.Screen name="Account and Login" component={AccountLoginScreen} />
+        <Stack.Screen name="Developer" component={DeveloperScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

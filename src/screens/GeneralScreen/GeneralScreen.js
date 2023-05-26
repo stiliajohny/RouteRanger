@@ -1,11 +1,15 @@
+// GeneralScreen.js
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import GeneralScreenStyles from './GeneralScreenStyles';
-import SpeedUnitToggle from './SpeedUnitToggle';
+import { Appearance } from 'react-native';
+import { getThemeStyles } from '../../CommonStyles';
+
+import styles from './GeneralScreenStyles';
+import ToggleSwitch from './ToggleSwitch';
 import ThemeToggle from './ThemeToggle';
 import MapViewToggle from './MapViewToggle';
-import ToggleSwitch from './ToggleSwitch';
+import SpeedUnitToggle from './SpeedUnitToggle';
 
 export default function GeneralScreen() {
     const [isSpeedUnitKMH, setSpeedUnit] = useState(true);
@@ -55,24 +59,37 @@ export default function GeneralScreen() {
     };
 
     const applyTheme = () => {
+        const themeStyles = getThemeStyles(theme);
         // Apply theme styles to your app here
+    };
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
     };
 
     return (
         <View>
-            <SpeedUnitToggle isSpeedUnitKMH={isSpeedUnitKMH} setSpeedUnit={setSpeedUnit} />
-            <ThemeToggle theme={theme} setTheme={setTheme} />
-            <ToggleSwitch
-                label=\"Keep Map North\"
-            value={keepMapNorth}
-            onValueChange={setKeepMapNorth}
-            />
-            <ToggleSwitch
-                label=\"Show Speedometer\"
-            value={showSpeedometer}
-            onValueChange={setShowSpeedometer}
-            />
-            <MapViewToggle mapView={mapView} setMapView={setMapView} />
+            <View style={styles.container}>
+                <Text style={styles.text}>Speed</Text>
+                <SpeedUnitToggle isSpeedUnitKMH={isSpeedUnitKMH} setSpeedUnit={setSpeedUnit} />
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.text}>Theme</Text>
+                <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.text}>Keep Map North</Text>
+                <ToggleSwitch value={keepMapNorth} onValueChange={setKeepMapNorth} />
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.text}>Show Speedometer</Text>
+                <ToggleSwitch value={showSpeedometer} onValueChange={setShowSpeedometer} />
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.text}>Map View</Text>
+                <MapViewToggle mapView={mapView} setMapView={setMapView} />
+            </View>
         </View>
     );
 }

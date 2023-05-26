@@ -1,17 +1,30 @@
+// ThemeToggle.js
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import GeneralScreenStyles from './GeneralScreenStyles';
+import styles from './GeneralScreenStyles';
 
-export default function ThemeToggle({ theme, setTheme }) {
-        const toggleTheme = () => {
-                const newTheme = theme === 'dark' ? 'light' : 'dark';
-                setTheme(newTheme);
-        };
-
+export default function ThemeToggle({ theme, toggleTheme }) {
         return (
-                <View>
-                        {/* Add your JSX content here */}
+                <View style={styles.iconContainer}>
+                        <TouchableOpacity onPress={toggleTheme}>
+                                <Ionicons
+                                        name="md-moon"
+                                        size={24}
+                                        color={theme === 'dark' ? 'black' : '#ccc'}
+                                        style={styles.icon}
+                                />
+                                {theme === 'dark' && <Text style={styles.text}>Dark</Text>}
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={toggleTheme}>
+                                <Ionicons
+                                        name="md-sunny"
+                                        size={24}
+                                        color={theme === 'light' ? 'black' : '#ccc'}
+                                        style={styles.icon}
+                                />
+                                {theme === 'light' && <Text style={styles.text}>Light</Text>}
+                        </TouchableOpacity>
                 </View>
         );
 }

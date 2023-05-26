@@ -1,23 +1,22 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import MainScreen from './src/screens/mainScreen/MainScreen'
+import MainScreen from './src/screens/MainScreen/MainScreen'
+import GeneralScreen from './src/screens/GeneralScreen/GeneralScreen'
 import SettingsScreen from './src/screens/SettingsScreen'
-import GeneralScreen from './src/screens/GeneralScreen'
 import MapDisplayScreen from './src/screens/MapDisplayScreen'
 import NavigationScreen from './src/screens/NavigationScreen'
 import VehicleTypeScreen from './src/screens/VehicleTypeScreen'
 import SpeedometerScreen from './src/screens/SpeedometerScreen'
 import AccountLoginScreen from './src/screens/AccountLoginScreen'
 import DeveloperScreen from './src/screens/DeveloperScreen'
-
-
+import CommonStyles from './src/CommonStyles' // Import CommonStyles
 
 const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer style={CommonStyles.background}>
       <Stack.Navigator initialRouteName="Main">
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />

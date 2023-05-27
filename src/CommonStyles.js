@@ -19,15 +19,6 @@ export const COLORS = {
                 buttonShadow: '#000000',
                 buttonText: '#000000',
         },
-        auto: {
-                primary: '#3f51b5',
-                secondary: '#f50057',
-                text: '#333333',
-                background: '#F5F5F5',
-                button: '#ffffff',
-                buttonShadow: '#000000',
-                buttonText: '#000000',
-        },
 };
 
 export const getThemeStyles = (theme) => {

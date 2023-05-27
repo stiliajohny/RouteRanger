@@ -8,9 +8,7 @@ export default function DeveloperScreen() {
         const [settings, setSettings] = useState(null);
         const [locationData, setLocationData] = useState(null);
 
-        // const isoTime = new Date(locationData.timestamp).toISOString();
 
-        // convert the iso time if location is available
         const isoTime = locationData ? new Date(locationData.timestamp).toISOString() : 'N/A';
 
 
@@ -32,6 +30,8 @@ export default function DeveloperScreen() {
                 }
         };
 
+        let locationSubscription;
+
         const fetchLocationData = async () => {
                 const { status } = await Location.requestForegroundPermissionsAsync();
                 if (status !== 'granted') {
@@ -39,29 +39,87 @@ export default function DeveloperScreen() {
                         return;
                 }
 
-                const deviceLocation = await Location.getCurrentPositionAsync({});
-                setLocationData(deviceLocation);
+                locationSubscription = await Location.watchPositionAsync(
+                        { distanceInterval: 1 }, // Updates every 1 meter. Adjust as needed.
+                        (deviceLocation) => {
+                                setLocationData(deviceLocation);
+                        }
+                );
         };
+
+        // Don't forget to stop watching for updates when the component unmounts.
+        useEffect(() => {
+                return () => {
+                        if (locationSubscription) {
+                                locationSubscription.remove();
+                        }
+                };
+        }, []);
+
 
         return (
                 <View>
-                        {settings && (
-                                <View>
-                                        <Text>Speed Unit (kph/mph): {settings.isSpeedUnitKMH ? 'kph' : 'mph'}</Text>
-                                        <Text>Theme: {settings.theme}</Text>
-                                        <Text>Keep Map North: {settings.keepMapNorth ? 'Yes' : 'No'}</Text>
-                                        <Text>Show Speedometer: {settings.showSpeedometer ? 'Yes' : 'No'}</Text>
-                                        <Text>Map View: {settings.mapView}</Text>
-                                        <Text>GPS Speed: {locationData ? locationData.coords.speed : 'N/A'}</Text>
-                                        <Text>GPS Accuracy: {locationData ? locationData.coords.accuracy : 'N/A'}</Text>
-                                        <Text>GPS Altitude: {locationData ? locationData.coords.altitude : 'N/A'}</Text>
-                                        <Text>GPS Altitude Accuracy: {locationData ? locationData.coords.altitudeAccuracy : 'N/A'}</Text>
-                                        <Text>GPS Heading: {locationData ? locationData.coords.heading : 'N/A'}</Text>
-                                        <Text>GPS Latitude: {locationData ? locationData.coords.latitude : 'N/A'}</Text>
-                                        <Text>GPS Longitude: {locationData ? locationData.coords.longitude : 'N/A'}</Text>
-                                        <Text>GPS Timestamp: {locationData ? locationData.timestamp : 'N/A'}</Text>
-                                        <Text>GPS ISO time: {isoTime} </Text>
+                        {(settings && locationData) && (
+                                <View style={{ flexDirection: 'column' }}>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>Speed Unit (kph/mph):</Text>
+                                                <Text>{settings.isSpeedUnitKMH ? 'kph' : 'mph'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>Theme:</Text>
+                                                <Text>{settings.theme}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>Keep Map North:</Text>
+                                                <Text>{settings.keepMapNorth ? 'Yes' : 'No'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>Show Speedometer:</Text>
+                                                <Text>{settings.showSpeedometer ? 'Yes' : 'No'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>Map View:</Text>
+                                                <Text>{settings.mapView}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>GPS Speed:</Text>
+                                                <Text>{locationData ? locationData.coords.speed : 'N/A'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>GPS Accuracy:</Text>
+                                                <Text>{locationData ? locationData.coords.accuracy : 'N/A'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>GPS Altitude:</Text>
+                                                <Text>{locationData ? locationData.coords.altitude : 'N/A'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>GPS Altitude Accuracy:</Text>
+                                                <Text>{locationData ? locationData.coords.altitudeAccuracy : 'N/A'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>GPS Heading:</Text>
+                                                <Text>{locationData ? locationData.coords.heading : 'N/A'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>GPS Latitude:</Text>
+                                                <Text>{locationData ? locationData.coords.latitude : 'N/A'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>GPS Longitude:</Text>
+                                                <Text>{locationData ? locationData.coords.longitude : 'N/A'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>GPS Timestamp:</Text>
+                                                <Text>{locationData ? locationData.timestamp : 'N/A'}</Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                <Text style={{ fontWeight: 'bold' }}>GPS ISO time:</Text>
+                                                <Text>{isoTime}</Text>
+                                        </View>
                                 </View>
+
+
                         )}
                 </View>
         );

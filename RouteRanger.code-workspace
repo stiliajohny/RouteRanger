@@ -8,7 +8,7 @@
 		// disable wrap
 		"editor.wordWrap": "off",
 		// minimap auto hide
-		"editor.minimap.enabled": false,
+		"editor.minimap.enabled": true,
 		// minimap on right
 		"editor.minimap.side": "right",
 		"deepscan.enable": true,

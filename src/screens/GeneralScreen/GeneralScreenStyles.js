@@ -1,30 +1,34 @@
-// GeneralScreenStyles.js
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-        container: {
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingHorizontal: 16,
-                paddingVertical: 8,
-                borderBottomWidth: 1,
-                borderBottomColor: '#ccc',
-        },
-        text: {
+export default StyleSheet.create({
+        screenContainer: {
                 flex: 1,
-        },
-        toggleContainer: {
-                flexDirection: 'row',
+                backgroundColor: '#f5f5f5',
                 alignItems: 'center',
+                justifyContent: 'center',
+                padding: 10,
+        },
+        card: {
+                width: '90%',
+                backgroundColor: '#fff',
+                padding: 20,
+                marginVertical: 10,
+                borderRadius: 15,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+        },
+        cardText: {
+                fontSize: 18,
+                fontWeight: 'bold',
+                marginBottom: 10,
         },
         iconContainer: {
                 flexDirection: 'row',
-                alignItems: 'center',
         },
         icon: {
-                marginHorizontal: 4,
+                marginRight: 10,
         },
 });
-
-export default styles;

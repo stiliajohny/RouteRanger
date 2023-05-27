@@ -4,8 +4,6 @@ import { Alert } from 'react-native';
 import * as Location from 'expo-location';
 import propTypes from 'prop-types';
 import MainScreenView from './MainScreenView';
-import * as SecureStore from 'expo-secure-store';
-import { getSpeedUnit } from './speedToggleLogic';
 
 const initialRegion = {
   latitudeDelta: 0.00922,
@@ -24,7 +22,6 @@ export default function MainScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [shouldRecenter, setShouldRecenter] = useState(true);
   const [speed, setSpeed] = useState(0);
-  const [settings, setSettings] = useState(null);
 
   const calculateSpeed = (location) => {
     // Calculate the speed based on the location
@@ -83,21 +80,7 @@ export default function MainScreen({ navigation }) {
     };
   }, [shouldRecenter]);
 
-  useEffect(() => {
-    const loadSettings = async () => {
-      try {
-        const value = await SecureStore.getItemAsync('settings');
-        if (value !== null) {
-          const parsedSettings = JSON.parse(value);
-          setSettings(parsedSettings);
-        }
-      } catch (error) {
-        console.log('Error loading settings:', error);
-      }
-    };
 
-    loadSettings();
-  }, []);
 
   const zoomIn = () => {
     if (!region) return;
@@ -145,7 +128,7 @@ export default function MainScreen({ navigation }) {
     setShouldRecenter(false);
   };
 
-  const speedUnit = getSpeedUnit(settings); // Get the speed unit from the settings
+  const speedUnit = "ss" //BUG not working
 
   return (
     <MainScreenView
@@ -157,7 +140,7 @@ export default function MainScreen({ navigation }) {
       recenter={recenter}
       navigation={navigation}
       speed={speed}
-      speedUnit={speedUnit} // Pass the speed unit as a prop
+      speedUnit={speedUnit} // Pass the speed unit as a prop //BUG not working
     />
   );
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, Text, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import styles from './MainScreenStyles'
-import { SPEED_UNITS, convertSpeed } from './speedToggleLogic'
 import MapView, { Marker, Polyline } from 'react-native-maps'
 import USERS from './UsersData' // new import
 
@@ -17,17 +16,13 @@ export default function MainScreenView({
   zoomOut,
   recenter,
   navigation,
-  speed // FIXME change the name as it makes a confusing conection with the actual speed, thids is the speedUnit that is passed in
+  speed, // FIXME change the name as it makes a confusing conection with the actual speed, thids is the speedUnit that is passed in
+  speedUnit
 }) {
-  const [speedUnitIndex, setSpeedUnitIndex] = useState(0)
 
-  const toggleSpeedUnit = () => {
-    setSpeedUnitIndex((speedUnitIndex + 1) % SPEED_UNITS.length)
-  }
 
-  const currentSpeedUnit = SPEED_UNITS[speedUnitIndex]
-  const displayedSpeed = convertSpeed(speed, currentSpeedUnit)
-
+  const currentSpeedUnit = "m/s"
+  const displayedSpeed = speed
   return (
     <View style={styles.mainContainer}>
       {region && (
@@ -81,7 +76,7 @@ export default function MainScreenView({
 
       {/* Speed button */}
       <View style={styles.speedButtonContainer}>
-        <TouchableOpacity style={styles.speedButton} onPress={toggleSpeedUnit}>
+        <TouchableOpacity style={styles.speedButton} >
           <Text>
             <Text style={styles.speedText}>{displayedSpeed.toFixed(0)}</Text>{' '}
             <Text style={styles.speedUnitText}>{currentSpeedUnit}</Text>

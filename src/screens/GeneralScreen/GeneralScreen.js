@@ -1,19 +1,15 @@
-// GeneralScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Switch } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
-import { Appearance } from 'react-native';
-import { getThemeStyles } from '../../CommonStyles';
-
-import styles from './GeneralScreenStyles';
-import ToggleSwitch from './ToggleSwitch';
+import GeneralScreenStyles from './GeneralScreenStyles';
+import SpeedUnitToggle from './SpeedUnitToggle';
 import ThemeToggle from './ThemeToggle';
 import MapViewToggle from './MapViewToggle';
-import SpeedUnitToggle from './SpeedUnitToggle';
 
 export default function GeneralScreen() {
     const [isSpeedUnitKMH, setSpeedUnit] = useState(true);
-    const [theme, setTheme] = useState(Appearance.getColorScheme() || 'dark');
+    const [theme, setTheme] = useState('dark');
     const [keepMapNorth, setKeepMapNorth] = useState(false);
     const [showSpeedometer, setShowSpeedometer] = useState(true);
     const [mapView, setMapView] = useState('3D');
@@ -59,7 +55,6 @@ export default function GeneralScreen() {
     };
 
     const applyTheme = () => {
-        const themeStyles = getThemeStyles(theme);
         // Apply theme styles to your app here
     };
 
@@ -69,27 +64,31 @@ export default function GeneralScreen() {
     };
 
     return (
-        <View>
-            <View style={styles.container}>
-                <Text style={styles.text}>Speed</Text>
+        <View style={GeneralScreenStyles.screenContainer}>
+            <TouchableOpacity style={GeneralScreenStyles.card}>
+                <Text style={GeneralScreenStyles.cardText}>Speed</Text>
                 <SpeedUnitToggle isSpeedUnitKMH={isSpeedUnitKMH} setSpeedUnit={setSpeedUnit} />
-            </View>
-            <View style={styles.container}>
-                <Text style={styles.text}>Theme</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={GeneralScreenStyles.card}>
+                <Text style={GeneralScreenStyles.cardText}>Theme</Text>
                 <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-            </View>
-            <View style={styles.container}>
-                <Text style={styles.text}>Keep Map North</Text>
-                <ToggleSwitch value={keepMapNorth} onValueChange={setKeepMapNorth} />
-            </View>
-            <View style={styles.container}>
-                <Text style={styles.text}>Show Speedometer</Text>
-                <ToggleSwitch value={showSpeedometer} onValueChange={setShowSpeedometer} />
-            </View>
-            <View style={styles.container}>
-                <Text style={styles.text}>Map View</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={GeneralScreenStyles.card}>
+                <Text style={GeneralScreenStyles.cardText}>Keep Map North</Text>
+                <View style={GeneralScreenStyles.iconContainer}>
+                    <Switch value={keepMapNorth} onValueChange={setKeepMapNorth} />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={GeneralScreenStyles.card}>
+                <Text style={GeneralScreenStyles.cardText}>Show Speedometer</Text>
+                <View style={GeneralScreenStyles.iconContainer}>
+                    <Switch value={showSpeedometer} onValueChange={setShowSpeedometer} />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={GeneralScreenStyles.card}>
+                <Text style={GeneralScreenStyles.cardText}>Map View</Text>
                 <MapViewToggle mapView={mapView} setMapView={setMapView} />
-            </View>
+            </TouchableOpacity>
         </View>
     );
 }

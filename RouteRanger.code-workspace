@@ -54,6 +54,7 @@
 			// add tab size of 8 spaces
 			"editor.tabSize": 8,
 		},
+		"git.ignoreLimitWarning": true,
 	},
 	"launch": {
 		"version": "0.2.0",

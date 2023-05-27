@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+
 import MainScreen from './src/screens/MainScreen/MainScreen'
 import GeneralScreen from './src/screens/GeneralScreen/GeneralScreen'
 import SettingsScreen from './src/screens/SettingsScreen'

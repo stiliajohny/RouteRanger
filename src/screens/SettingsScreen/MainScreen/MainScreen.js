@@ -4,6 +4,8 @@ import { Alert } from 'react-native';
 import * as Location from 'expo-location';
 import propTypes from 'prop-types';
 import MainScreenView from './MainScreenView';
+import * as SecureStore from 'expo-secure-store';
+
 
 const initialRegion = {
   latitudeDelta: 0.00922,
@@ -22,6 +24,8 @@ export default function MainScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [shouldRecenter, setShouldRecenter] = useState(true);
   const [speed, setSpeed] = useState(0);
+  const [settings, setSettings] = useState(null);
+
 
   const calculateSpeed = (location) => {
     // Calculate the speed based on the location
@@ -80,7 +84,15 @@ export default function MainScreen({ navigation }) {
     };
   }, [shouldRecenter]);
 
+  useEffect(() => {
+    const focusListener = navigation.addListener('focus', () => {
+      loadSettings();
+    });
 
+    return () => {
+      focusListener.remove();
+    };
+  }, []);
 
   const zoomIn = () => {
     if (!region) return;
@@ -128,7 +140,30 @@ export default function MainScreen({ navigation }) {
     setShouldRecenter(false);
   };
 
-  const speedUnit = "ss" //BUG not working
+  const loadSettings = async () => {
+    try {
+      const value = await SecureStore.getItemAsync('settings');
+      if (value !== null) {
+        const parsedSettings = JSON.parse(value);
+        setSettings(parsedSettings);
+      }
+    } catch (error) {
+      console.log('Error loading settings:', error);
+    }
+  };
+
+  const speedUnit = settings && settings.isSpeedUnitKMH ? 'kph' : 'mph';
+
+  const convertSpeed = (speed, speedUnit) => {
+    if (speedUnit === 'kph') {
+      return speed * 1.60934;
+    }
+    if (speedUnit === 'mph') {
+      return speed * 1;
+    }
+  };
+
+  const updatedSpeed = convertSpeed(speed, speedUnit).toFixed(0);
 
   return (
     <MainScreenView
@@ -139,8 +174,8 @@ export default function MainScreen({ navigation }) {
       zoomOut={zoomOut}
       recenter={recenter}
       navigation={navigation}
-      speed={speed}
-      speedUnit={speedUnit} // Pass the speed unit as a prop //BUG not working
+      speed={updatedSpeed} // Use updatedSpeed instead of speed
+      speedUnit={speedUnit}
     />
   );
 }

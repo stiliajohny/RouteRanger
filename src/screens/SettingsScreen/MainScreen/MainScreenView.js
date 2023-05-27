@@ -4,18 +4,10 @@ import { Ionicons } from '@expo/vector-icons'
 import styles from './MainScreenStyles'
 import { SPEED_UNITS, convertSpeed } from './speedToggleLogic'
 import MapView, { Marker, Polyline } from 'react-native-maps'
+import USERS from './UsersData' // new import
 
 const MARKER_IMAGE = require('./assets/marker.png')
 
-// Define the map coordinates and user marker details
-const USERS = [
-  {
-    name: 'Chile',
-    latitude: -33.4489,
-    longitude: -70.6693
-  }
-  // Add more users here if needed
-]
 
 export default function MainScreenView({
   region,
@@ -25,7 +17,7 @@ export default function MainScreenView({
   zoomOut,
   recenter,
   navigation,
-  speed
+  speed // FIXME change the name as it makes a confusing conection with the actual speed, thids is the speedUnit that is passed in
 }) {
   const [speedUnitIndex, setSpeedUnitIndex] = useState(0)
 

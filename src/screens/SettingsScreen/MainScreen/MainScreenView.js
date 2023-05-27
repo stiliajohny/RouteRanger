@@ -16,13 +16,12 @@ export default function MainScreenView({
   zoomOut,
   recenter,
   navigation,
-  speed, // FIXME change the name as it makes a confusing conection with the actual speed, thids is the speedUnit that is passed in
-  speedUnit
+  speed,
+  speedUnit,
 }) {
 
 
-  const currentSpeedUnit = "m/s"
-  const displayedSpeed = speed
+
   return (
     <View style={styles.mainContainer}>
       {region && (
@@ -78,8 +77,8 @@ export default function MainScreenView({
       <View style={styles.speedButtonContainer}>
         <TouchableOpacity style={styles.speedButton} >
           <Text>
-            <Text style={styles.speedText}>{displayedSpeed.toFixed(0)}</Text>{' '}
-            <Text style={styles.speedUnitText}>{currentSpeedUnit}</Text>
+            <Text style={styles.speedText}>{speed}</Text>{' '}
+            <Text style={styles.speedUnitText}>{speedUnit}</Text>
           </Text>
         </TouchableOpacity>
       </View>

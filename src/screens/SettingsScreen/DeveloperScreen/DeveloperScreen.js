@@ -3,11 +3,15 @@ import { View, Text } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import * as Location from 'expo-location';
 
+
 export default function DeveloperScreen() {
         const [settings, setSettings] = useState(null);
         const [locationData, setLocationData] = useState(null);
 
-        const isoTime = new Date(locationData.timestamp).toISOString();
+        // const isoTime = new Date(locationData.timestamp).toISOString();
+
+        // convert the iso time if location is available
+        const isoTime = locationData ? new Date(locationData.timestamp).toISOString() : 'N/A';
 
 
 

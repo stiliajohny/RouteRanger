@@ -2,7 +2,7 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import MainScreen from './src/screens/SettingsScreen/MainScreen/MainScreen'
+import MainScreen from './src/screens/MainScreen/MainScreen.js'
 import GeneralScreen from './src/screens/SettingsScreen/GeneralScreen/GeneralScreen'
 import SettingsScreen from './src/screens/SettingsScreen/SettingsScreen'
 import MapDisplayScreen from './src/screens/SettingsScreen/MapDisplayScreen/MapDisplayScreen.js'

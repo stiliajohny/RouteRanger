@@ -1,39 +1,58 @@
-import React, { useState } from 'react'
-import { View, TouchableOpacity, Text, Image } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
-import styles from './MainScreenStyles'
-import MapView, { Marker, Polyline } from 'react-native-maps'
-import USERS from './UsersData' // new import
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import styles from './MainScreenStyles';
+import MapView, { Marker, Polyline } from 'react-native-maps';
+import USERS from './UsersData'; // new import
 
-const MARKER_IMAGE = require('./assets/marker.png')
-
+const MARKER_IMAGE = require('./assets/marker.png');
 
 export default function MainScreenView({
   region,
   location,
   onRegionChangeComplete,
-  zoomIn,
-  zoomOut,
   recenter,
   navigation,
   speed,
   speedUnit,
+  heading,
 }) {
+  // TODO add settings for default altitude
+  const [altitude, setAltitude] = useState(100); // Default altitude value of 100 T
 
+  // Function to handle zoomIn button press
+  const handleZoomIn = () => {
+    setAltitude((prevAltitude) => prevAltitude + 10); // Increase altitude by 10
+  };
+
+  // Function to handle zoomOut button press
+  const handleZoomOut = () => {
+    setAltitude((prevAltitude) => prevAltitude - 10); // Decrease altitude by 10
+  };
 
   return (
     <View style={styles.mainContainer}>
       {region && (
         <MapView
           style={styles.map}
-          region={region}
           onRegionChangeComplete={onRegionChangeComplete}
+          mapType="standard"
+          camera={{
+            center: {
+              latitude: region.latitude,
+              longitude: region.longitude,
+            },
+            // TODO add settings for default pitch
+            pitch: 70,
+            heading: heading,
+            altitude: altitude,
+          }}
         >
           {location && (
             <Marker
               coordinate={{
                 latitude: location.coords.latitude,
-                longitude: location.coords.longitude
+                longitude: location.coords.longitude,
               }}
             >
               <Image source={MARKER_IMAGE} style={styles.markerImage} />
@@ -45,7 +64,7 @@ export default function MainScreenView({
               key={index}
               coordinate={{
                 latitude: user.latitude,
-                longitude: user.longitude
+                longitude: user.longitude,
               }}
               title={user.name}
             />
@@ -58,14 +77,16 @@ export default function MainScreenView({
                 coordinates={[
                   {
                     latitude: location.coords.latitude,
-                    longitude: location.coords.longitude
+                    longitude: location.coords.longitude,
                   },
                   {
                     latitude: user.latitude,
-                    longitude: user.longitude
-                  }
+                    longitude: user.longitude,
+                  },
                 ]}
+                // TODO add settings for default polyline color
                 strokeColor="#FF0000"
+                //  TODO add settings for default polyline width
                 strokeWidth={2}
               />
             ))}
@@ -74,7 +95,7 @@ export default function MainScreenView({
 
       {/* Speed button */}
       <View style={styles.speedButtonContainer}>
-        <TouchableOpacity style={styles.speedButton} >
+        <TouchableOpacity style={styles.speedButton}>
           <Text>
             <Text style={styles.speedText}>{speed}</Text>{' '}
             <Text style={styles.speedUnitText}>{speedUnit}</Text>
@@ -84,10 +105,10 @@ export default function MainScreenView({
 
       {/* Control buttons */}
       <View style={styles.controlsContainer}>
-        <TouchableOpacity style={styles.controlButton} onPress={zoomIn}>
+        <TouchableOpacity style={styles.controlButton} onPress={handleZoomIn}>
           <Ionicons name="add" style={styles.buttonsText} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.controlButton} onPress={zoomOut}>
+        <TouchableOpacity style={styles.controlButton} onPress={handleZoomOut}>
           <Ionicons name="remove" style={styles.buttonsText} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.controlButton} onPress={recenter}>
@@ -101,5 +122,5 @@ export default function MainScreenView({
         </TouchableOpacity>
       </View>
     </View>
-  )
+  );
 }

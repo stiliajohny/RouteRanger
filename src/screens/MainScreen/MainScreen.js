@@ -1,5 +1,5 @@
 // screens/MainScreen.js
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import * as Location from 'expo-location';
 import propTypes from 'prop-types';
@@ -8,18 +8,16 @@ import * as SecureStore from 'expo-secure-store';
 
 
 const initialRegion = {
-  latitudeDelta: 0.00922,
-  longitudeDelta: 0.00421,
+  latitudeDelta: 0.00522,
+  longitudeDelta: 0.00221,
 };
-const maxZoomDelta = 0.05;
-const minZoomDelta = 50;
+
 
 export default function MainScreen({ navigation }) {
   MainScreen.propTypes = {
     navigation: propTypes.object,
   };
 
-  const mapRef = useRef(null);
   const [region, setRegion] = useState(null);
   const [location, setLocation] = useState(null);
   const [shouldRecenter, setShouldRecenter] = useState(true);
@@ -28,8 +26,6 @@ export default function MainScreen({ navigation }) {
 
 
   const calculateSpeed = (location) => {
-    // Calculate the speed based on the location
-    // For example:
     const speed = location.coords.speed || 0;
     return speed;
   };
@@ -70,7 +66,7 @@ export default function MainScreen({ navigation }) {
       unsubscribe = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.High,
-          timeInterval: 10,
+          timeInterval: 500,
           distanceInterval: 0,
         },
         callback
@@ -93,42 +89,6 @@ export default function MainScreen({ navigation }) {
       focusListener.remove();
     };
   }, []);
-
-  const zoomIn = () => {
-    if (!region) return;
-    if (region.latitudeDelta <= maxZoomDelta || region.longitudeDelta <= maxZoomDelta) {
-      return;
-    }
-
-    const newRegion = {
-      ...region,
-      latitudeDelta: region.latitudeDelta / 2,
-      longitudeDelta: region.longitudeDelta / 2,
-    };
-
-    if (mapRef.current) {
-      mapRef.current.animateToRegion(newRegion, 500);
-    }
-
-    setRegion(newRegion);
-  };
-
-  const zoomOut = () => {
-    if (!region) return;
-    if (region.latitudeDelta >= minZoomDelta || region.longitudeDelta >= minZoomDelta) {
-      return;
-    }
-
-    const newRegion = {
-      ...region,
-      latitudeDelta: region.latitudeDelta * 2,
-      longitudeDelta: region.longitudeDelta * 2,
-    };
-    if (mapRef.current) {
-      mapRef.current.animateToRegion(newRegion, 500);
-    }
-    setRegion(newRegion);
-  };
 
   const recenter = () => {
     if (!location) return;
@@ -164,18 +124,18 @@ export default function MainScreen({ navigation }) {
   };
 
   const updatedSpeed = convertSpeed(speed, speedUnit).toFixed(0);
+  const locationHeading = location?.coords.heading;
 
   return (
     <MainScreenView
       region={region}
       location={location}
       onRegionChangeComplete={onRegionChangeComplete}
-      zoomIn={zoomIn}
-      zoomOut={zoomOut}
       recenter={recenter}
       navigation={navigation}
-      speed={updatedSpeed} // Use updatedSpeed instead of speed
+      speed={updatedSpeed}
       speedUnit={speedUnit}
+      heading={locationHeading}
     />
   );
 }

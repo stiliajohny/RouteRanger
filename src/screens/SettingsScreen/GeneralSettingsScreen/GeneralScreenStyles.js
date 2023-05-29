@@ -27,7 +27,6 @@ export default StyleSheet.create({
                 fontSize: 18,
                 fontWeight: 'bold',
                 marginBottom: 10,
-
         },
         sliderContainer: {
                 flexDirection: 'row',
@@ -66,4 +65,14 @@ export default StyleSheet.create({
                 flexDirection: 'row',
                 alignItems: 'center',
         },
+        iconContainer: {
+                flexDirection: 'row', // Added for map type icons
+        },
+        icon: {
+                marginRight: 10, // Added for map type icons
+        },
+        iconItemContent: {
+                alignItems: 'center',
+        },
+
 });

@@ -7,7 +7,7 @@ import DefaultMapPitch from './DefaultMapPitch';
 import DefaultPolylineColor from './DefaultPolylineColor';
 import DefaultPolylineThickness from './DefaultPolylineThickness';
 import GeneralScreenStyles from './GeneralScreenStyles';
-import MapViewToggle from './MapViewToggle';
+import MapViewToggle from './MapType.js';
 import SpeedUnitToggle from './SpeedUnitToggle';
 import ThemeToggle from './ThemeToggle';
 

@@ -4,6 +4,7 @@ import GeneralScreenStyles from './GeneralScreenStyles';
 
 export default function SpeedUnitToggle({ isSpeedUnitKMH, setSpeedUnit }) {
         return (
+
                 <View style={GeneralScreenStyles.iconContainer}>
                         <TouchableOpacity onPress={() => setSpeedUnit(true)}>
                                 <Text

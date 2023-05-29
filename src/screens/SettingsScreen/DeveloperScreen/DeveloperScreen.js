@@ -40,7 +40,6 @@ export default function DeveloperScreen() {
                 }
 
                 locationSubscription = await Location.watchPositionAsync(
-                        { accuracy: Location.Accuracy.BestForNavigation, timeInterval: 1000 },
                         { distanceInterval: 1 }, // Updates every 1 meter. Adjust as needed.
                         (deviceLocation) => {
                                 setLocationData(deviceLocation);

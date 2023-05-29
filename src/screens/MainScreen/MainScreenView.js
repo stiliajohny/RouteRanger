@@ -55,8 +55,8 @@ const MainScreenView = ({
 
   const finalHeading = adjustedHeading();
 
-  const increaseAltitude = () => setAltitude(prevAltitude => prevAltitude + 10);
-  const decreaseAltitude = () => setAltitude(prevAltitude => prevAltitude - 10);
+  const increaseAltitude = () => setAltitude(prevAltitude => prevAltitude - 50);
+  const decreaseAltitude = () => setAltitude(prevAltitude => prevAltitude + 50);
 
   return (
     <View style={styles.mainContainer}>

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Switch, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
-import GeneralScreenStyles from './GeneralScreenStyles';
+
 import SpeedUnitToggle from './SpeedUnitToggle';
 import ThemeToggle from './ThemeToggle';
 import MapViewToggle from './MapViewToggle';
-import Slider from '@react-native-community/slider';
+import GeneralScreenStyles from './GeneralScreenStyles';
+import DefaultPolylineThickness from './DefaultPolylineThickness';
+import DefaultPolylineColor from './DefaultPolylineColor';
+import DefaultMapPitch from './DefaultMapPitch';
+import DefaultMapAltitude from './DefaultMapAltitude';
 
 export default function GeneralScreen() {
     const [isSpeedUnitKMH, setSpeedUnit] = useState(true);
@@ -111,16 +114,17 @@ export default function GeneralScreen() {
     return (
         <KeyboardAvoidingView style={GeneralScreenStyles.container} behavior="height">
             <ScrollView contentContainerStyle={GeneralScreenStyles.scrollContainer}>
+
+                {/* SpeedUnitToggle Card */}
                 <TouchableOpacity style={GeneralScreenStyles.card}>
                     <Text style={GeneralScreenStyles.cardText}>Speed</Text>
                     <SpeedUnitToggle isSpeedUnitKMH={isSpeedUnitKMH} setSpeedUnit={setSpeedUnit} />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={GeneralScreenStyles.card}>
-                    <Text style={GeneralScreenStyles.cardText}>Theme</Text>
-                    <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-                </TouchableOpacity>
+                {/* ThemeToggle Card */}
+                <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
 
+                { }
                 <TouchableOpacity style={GeneralScreenStyles.card}>
                     <Text style={GeneralScreenStyles.cardText}>Keep Map North</Text>
                     <View style={GeneralScreenStyles.iconContainer}>
@@ -128,6 +132,7 @@ export default function GeneralScreen() {
                     </View>
                 </TouchableOpacity>
 
+                {/* Show Speedometer Card */}
                 <TouchableOpacity style={GeneralScreenStyles.card}>
                     <Text style={GeneralScreenStyles.cardText}>Show Speedometer</Text>
                     <View style={GeneralScreenStyles.iconContainer}>
@@ -135,87 +140,31 @@ export default function GeneralScreen() {
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={GeneralScreenStyles.card}>
-                    <Text style={GeneralScreenStyles.cardText}>Map View</Text>
-                    <MapViewToggle mapView={mapView} setMapView={setMapView} />
-                </TouchableOpacity>
 
-                <TouchableOpacity style={GeneralScreenStyles.card}>
-                    <Text style={GeneralScreenStyles.cardText}>Default Map Altitude</Text>
-                    <View style={GeneralScreenStyles.sliderContainer}>
-                        <Slider
-                            style={GeneralScreenStyles.slider}
-                            minimumValue={10}
-                            maximumValue={100}
-                            step={1}
-                            value={defaultMapAltitude}
-                            onValueChange={setDefaultMapAltitude}
-                        />
-                        <Text style={GeneralScreenStyles.sliderValue}>{defaultMapAltitude}</Text>
-                    </View>
-                </TouchableOpacity>
 
-                <TouchableOpacity style={GeneralScreenStyles.card}>
-                    <Text style={GeneralScreenStyles.cardText}>Default Map Pitch</Text>
-                    <View style={GeneralScreenStyles.sliderContainer}>
-                        <Slider
-                            style={GeneralScreenStyles.slider}
-                            minimumValue={0}
-                            maximumValue={90}
-                            step={1}
-                            value={defaultMapPitch}
-                            onValueChange={setDefaultMapPitch}
-                        />
-                        <Text style={GeneralScreenStyles.sliderValue}>{defaultMapPitch}°</Text>
-                    </View>
-                </TouchableOpacity>
+                {/* Map View Card */}
+                <MapViewToggle mapView={mapView} setMapView={setMapView} />
 
-                <TouchableOpacity style={GeneralScreenStyles.card}>
-                    <Text style={GeneralScreenStyles.cardText}>Default Polyline Color</Text>
-                    <View style={GeneralScreenStyles.colorOptionsContainer}>
-                        {colorOptions.map((option) => (
-                            <TouchableOpacity
-                                key={option.color}
-                                style={[
-                                    GeneralScreenStyles.colorOption,
-                                    { backgroundColor: option.color },
-                                ]}
-                                onPress={() => handlePolylineColorChange(option.color)}
-                            >
-                                <View style={GeneralScreenStyles.colorOptionLabelContainer}>
-                                    {/* <Text style={GeneralScreenStyles.colorOptionLabelText}>{option.label}</Text> */}
-                                    {/* <Text style={GeneralScreenStyles.colorOptionLabelHex}>{option.color}</Text> */}
-                                </View>
-                                {defaultPolylineColor === option.color && (
-                                    <Ionicons
-                                        name="md-checkmark"
-                                        size={20}
-                                        color="#fff"
-                                        style={GeneralScreenStyles.checkmarkIcon}
-                                    />
-                                )}
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                    <Text style={GeneralScreenStyles.cardSubText}>
-                        Selected Color: {getHexColorLabel(defaultPolylineColor)} - {defaultPolylineColor}
-                    </Text>
-                </TouchableOpacity>
+                {/* Default Map Altitude Card */}
+                <DefaultMapAltitude defaultMapAltitude={defaultMapAltitude} setDefaultMapAltitude={setDefaultMapAltitude} />
 
-                <TouchableOpacity style={GeneralScreenStyles.card}>
-                    <Text style={GeneralScreenStyles.cardText}>Default Polyline Thickness</Text>
-                    <View style={GeneralScreenStyles.sliderContainer}>
-                        <Slider
-                            style={GeneralScreenStyles.slider}
-                            minimumValue={0.5}
-                            maximumValue={5}
-                            step={0.5}
-                            value={defaultPolylineThickness}
-                            onValueChange={setDefaultPolylineThickness}
-                        />
-                        <Text style={GeneralScreenStyles.sliderValue}>{defaultPolylineThickness}</Text>
-                    </View>
-                </TouchableOpacity>
+
+                {/* Default Map Pitch Card */}
+                <DefaultMapPitch defaultMapPitch={defaultMapPitch} setDefaultMapPitch={setDefaultMapPitch} />
+
+                {/* Default Polyline Color Card */}
+                <DefaultPolylineColor
+                    defaultPolylineColor={defaultPolylineColor}
+                    handlePolylineColorChange={handlePolylineColorChange}
+                    colorOptions={colorOptions}
+                    getHexColorLabel={getHexColorLabel}
+                />
+
+                {/* Default Polyline Thickness Card */}
+                <DefaultPolylineThickness
+                    defaultPolylineThickness={defaultPolylineThickness}
+                    setDefaultPolylineThickness={setDefaultPolylineThickness}
+                />
             </ScrollView>
         </KeyboardAvoidingView>
     );

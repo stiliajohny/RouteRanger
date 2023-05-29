@@ -5,7 +5,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 import MainScreen from './src/screens/MainScreen/MainScreen.js'
 import GeneralScreen from './src/screens/SettingsScreen/GeneralScreen/GeneralScreen'
 import SettingsScreen from './src/screens/SettingsScreen/SettingsScreen'
-import MapDisplayScreen from './src/screens/SettingsScreen/MapDisplayScreen/MapDisplayScreen.js'
 import NavigationScreen from './src/screens/SettingsScreen/NavigationScreen/NavigationScreen.js'
 import VehicleTypeScreen from './src/screens/SettingsScreen/VehicleTypeScreen/VehicleTypeScreen.js'
 import SpeedometerScreen from './src/screens/SettingsScreen/SpeedometerScreen/SpeedometerScreen.js'
@@ -22,7 +21,6 @@ export default function App() {
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="General" component={GeneralScreen} />
-        <Stack.Screen name="Map Display" component={MapDisplayScreen} />
         <Stack.Screen name="Navigation" component={NavigationScreen} />
         <Stack.Screen name="Vehicle Type" component={VehicleTypeScreen} />
         <Stack.Screen name="Speedometer" component={SpeedometerScreen} />

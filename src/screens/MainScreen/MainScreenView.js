@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, Image } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+
 import { Ionicons } from '@expo/vector-icons';
 import styles from './MainScreenStyles';
 import MapView, { Marker, Polyline } from 'react-native-maps';
-import USERS from './UsersData'; // new import
+import * as SecureStore from 'expo-secure-store';
+import USERS from './UsersData';
 
 const MARKER_IMAGE = require('./assets/marker.png');
 
-export default function MainScreenView({
+const MainScreenView = ({
   region,
   location,
   onRegionChangeComplete,
@@ -16,19 +19,44 @@ export default function MainScreenView({
   speed,
   speedUnit,
   heading,
-}) {
-  // TODO add settings for default altitude
-  const [altitude, setAltitude] = useState(100); // Default altitude value of 100 T
+}) => {
 
-  // Function to handle zoomIn button press
-  const handleZoomIn = () => {
-    setAltitude((prevAltitude) => prevAltitude + 10); // Increase altitude by 10
+  const fetchSettings = async () => {
+    try {
+      const value = await SecureStore.getItemAsync('settings');
+      if (value !== null) {
+        const parsedSettings = JSON.parse(value);
+        setMapPitch(parsedSettings.defaultMapPitch);
+        setPolylineColor(parsedSettings.defaultPolylineColor);
+        setPolylineThickness(parsedSettings.defaultPolylineThickness);
+        setMapViewType(parsedSettings.mapView);
+        setKeepMapNorth(parsedSettings.keepMapNorth);
+      }
+    } catch (error) {
+      console.log('Error loading settings:', error);
+    }
   };
 
-  // Function to handle zoomOut button press
-  const handleZoomOut = () => {
-    setAltitude((prevAltitude) => prevAltitude - 10); // Decrease altitude by 10
-  };
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchSettings();
+      return () => { };
+    }, [])
+  );
+
+  const [altitude, setAltitude] = useState(100);
+  const [mapPitch, setMapPitch] = useState(70);
+  const [polylineColor, setPolylineColor] = useState('#000');
+  const [polylineThickness, setPolylineThickness] = useState(0.5);
+  const [mapViewType, setMapViewType] = useState('standard');
+  const [keepMapNorth, setKeepMapNorth] = useState(0);
+
+  const adjustedHeading = () => keepMapNorth ? 0 : heading;
+
+  const finalHeading = adjustedHeading();
+
+  const increaseAltitude = () => setAltitude(prevAltitude => prevAltitude + 10);
+  const decreaseAltitude = () => setAltitude(prevAltitude => prevAltitude - 10);
 
   return (
     <View style={styles.mainContainer}>
@@ -36,17 +64,14 @@ export default function MainScreenView({
         <MapView
           style={styles.map}
           onRegionChangeComplete={onRegionChangeComplete}
-          // TODO add settings for default map type
-          mapType="standard"
+          mapType={mapViewType}
           camera={{
             center: {
               latitude: region.latitude,
               longitude: region.longitude,
             },
-            // TODO add settings for default pitch
-            pitch: 70,
-            // TODO add settings for default heading depends Keep map north up or not
-            heading: heading,
+            pitch: mapPitch,
+            heading: finalHeading,
             altitude: altitude,
           }}
         >
@@ -60,7 +85,6 @@ export default function MainScreenView({
               <Image source={MARKER_IMAGE} style={styles.markerImage} />
             </Marker>
           )}
-          {/* Render user markers */}
           {USERS.map((user, index) => (
             <Marker
               key={index}
@@ -71,7 +95,6 @@ export default function MainScreenView({
               title={user.name}
             />
           ))}
-          {/* Render polylines */}
           {location &&
             USERS.map((user, index) => (
               <Polyline
@@ -86,17 +109,12 @@ export default function MainScreenView({
                     longitude: user.longitude,
                   },
                 ]}
-                // TODO add settings for default polyline color
-                strokeColor="#FF0000"
-                //  TODO add settings for default polyline width
-                strokeWidth={2}
+                strokeColor={polylineColor}
+                strokeWidth={polylineThickness}
               />
             ))}
         </MapView>
       )}
-
-      {/* Speed button */}
-      {/* // TODO show speed button if settings is enabled */}
       <View style={styles.speedButtonContainer}>
         <TouchableOpacity style={styles.speedButton}>
           <Text>
@@ -105,13 +123,11 @@ export default function MainScreenView({
           </Text>
         </TouchableOpacity>
       </View>
-
-      {/* Control buttons */}
       <View style={styles.controlsContainer}>
-        <TouchableOpacity style={styles.controlButton} onPress={handleZoomIn}>
+        <TouchableOpacity style={styles.controlButton} onPress={increaseAltitude}>
           <Ionicons name="add" style={styles.buttonsText} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.controlButton} onPress={handleZoomOut}>
+        <TouchableOpacity style={styles.controlButton} onPress={decreaseAltitude}>
           <Ionicons name="remove" style={styles.buttonsText} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.controlButton} onPress={recenter}>
@@ -127,3 +143,5 @@ export default function MainScreenView({
     </View>
   );
 }
+
+export default MainScreenView;

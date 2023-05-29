@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import MainScreen from './src/screens/MainScreen/MainScreen.js'
-import GeneralScreen from './src/screens/SettingsScreen/GeneralScreen/GeneralScreen'
+import GeneralScreen from './src/screens/SettingsScreen/GeneralSettingsScreen/GeneralScreen.js'
 import SettingsScreen from './src/screens/SettingsScreen/SettingsScreen'
 import NavigationScreen from './src/screens/SettingsScreen/NavigationScreen/NavigationScreen.js'
 import VehicleTypeScreen from './src/screens/SettingsScreen/VehicleTypeScreen/VehicleTypeScreen.js'

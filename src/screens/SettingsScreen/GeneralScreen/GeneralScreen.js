@@ -183,6 +183,8 @@ export default function GeneralScreen() {
                                 onPress={() => handlePolylineColorChange(option.color)}
                             >
                                 <View style={GeneralScreenStyles.colorOptionLabelContainer}>
+                                    {/* <Text style={GeneralScreenStyles.colorOptionLabelText}>{option.label}</Text> */}
+                                    {/* <Text style={GeneralScreenStyles.colorOptionLabelHex}>{option.color}</Text> */}
                                 </View>
                                 {defaultPolylineColor === option.color && (
                                     <Ionicons

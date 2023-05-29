@@ -36,6 +36,7 @@ export default function MainScreenView({
         <MapView
           style={styles.map}
           onRegionChangeComplete={onRegionChangeComplete}
+          // TODO add settings for default map type
           mapType="standard"
           camera={{
             center: {
@@ -44,6 +45,7 @@ export default function MainScreenView({
             },
             // TODO add settings for default pitch
             pitch: 70,
+            // TODO add settings for default heading depends Keep map north up or not
             heading: heading,
             altitude: altitude,
           }}
@@ -94,6 +96,7 @@ export default function MainScreenView({
       )}
 
       {/* Speed button */}
+      {/* // TODO show speed button if settings is enabled */}
       <View style={styles.speedButtonContainer}>
         <TouchableOpacity style={styles.speedButton}>
           <Text>

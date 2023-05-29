@@ -40,6 +40,7 @@ export default function DeveloperScreen() {
                 }
 
                 locationSubscription = await Location.watchPositionAsync(
+                        { accuracy: Location.Accuracy.BestForNavigation, timeInterval: 1000 },
                         { distanceInterval: 1 }, // Updates every 1 meter. Adjust as needed.
                         (deviceLocation) => {
                                 setLocationData(deviceLocation);
@@ -81,7 +82,6 @@ export default function DeveloperScreen() {
                                                 <Text style={{ fontWeight: 'bold' }}>Map View:</Text>
                                                 <Text>{settings.mapView}</Text>
                                         </View>
-                                        {/* Add the new settings below */}
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                                 <Text style={{ fontWeight: 'bold' }}>Default Map Altitude:</Text>
                                                 <Text>{settings.defaultMapAltitude}</Text>
@@ -98,7 +98,6 @@ export default function DeveloperScreen() {
                                                 <Text style={{ fontWeight: 'bold' }}>Default Polyline Thickness:</Text>
                                                 <Text>{settings.defaultPolylineThickness}</Text>
                                         </View>
-                                        {/* End of new settings */}
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                                 <Text style={{ fontWeight: 'bold' }}>GPS Speed:</Text>
                                                 <Text>{locationData ? locationData.coords.speed : 'N/A'}</Text>

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Switch, ScrollView, KeyboardAvoidingView } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 
+import DefaultMapAltitude from './DefaultMapAltitude';
+import DefaultMapPitch from './DefaultMapPitch';
+import DefaultPolylineColor from './DefaultPolylineColor';
+import DefaultPolylineThickness from './DefaultPolylineThickness';
+import GeneralScreenStyles from './GeneralScreenStyles';
+import MapViewToggle from './MapViewToggle';
 import SpeedUnitToggle from './SpeedUnitToggle';
 import ThemeToggle from './ThemeToggle';
-import MapViewToggle from './MapViewToggle';
-import GeneralScreenStyles from './GeneralScreenStyles';
-import DefaultPolylineThickness from './DefaultPolylineThickness';
-import DefaultPolylineColor from './DefaultPolylineColor';
-import DefaultMapPitch from './DefaultMapPitch';
-import DefaultMapAltitude from './DefaultMapAltitude';
 
 export default function GeneralScreen() {
     const [isSpeedUnitKMH, setSpeedUnit] = useState(true);

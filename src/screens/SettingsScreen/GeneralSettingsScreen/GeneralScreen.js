@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Switch, ScrollView, KeyboardAvoidingView } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 
-import DefaultMapAltitude from './MapAltitude';
-import DefaultMapPitch from './MapPitch';
-import DefaultPolylineColor from './PolylineColor';
-import DefaultPolylineThickness from './PolylineThickness';
+import MapAltitude from './MapAltitude';
+import MapPitch from './MapPitch';
+import PolylineColor from './PolylineColor';
+import PolylineThickness from './PolylineThickness';
 import GeneralScreenStyles from './GeneralScreenStyles';
 import MapViewToggle from './MapType.js';
 import SpeedUnitToggle from './SpeedUnitToggle';
@@ -148,23 +148,23 @@ export default function GeneralScreen() {
                 <MapViewToggle mapView={mapView} setMapView={setMapView} />
 
                 {/* Default Map Altitude Card */}
-                <DefaultMapAltitude defaultMapAltitude={defaultMapAltitude} setDefaultMapAltitude={setDefaultMapAltitude} />
+                <MapAltitude defaultMapAltitude={defaultMapAltitude} setDefaultMapAltitude={setDefaultMapAltitude} />
 
                 {/* Default Map Pitch Card */}
-                <DefaultMapPitch defaultMapPitch={defaultMapPitch} setDefaultMapPitch={setDefaultMapPitch} />
+                <MapPitch defaultMapPitch={defaultMapPitch} setDefaultMapPitch={setDefaultMapPitch} />
 
                 <Text style={GeneralScreenStyles.title}>Line Settings</Text>
                 <View style={GeneralScreenStyles.lineStyle} />
 
 
                 {/* Default Polyline Thickness Card */}
-                <DefaultPolylineThickness
+                <PolylineThickness
                     defaultPolylineThickness={defaultPolylineThickness}
                     setDefaultPolylineThickness={setDefaultPolylineThickness}
                 />
 
                 {/* Default Polyline Color Card */}
-                <DefaultPolylineColor
+                <PolylineColor
                     defaultPolylineColor={defaultPolylineColor}
                     handlePolylineColorChange={handlePolylineColorChange}
                     colorOptions={colorOptions}

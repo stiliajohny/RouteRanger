@@ -99,10 +99,7 @@ export default function GeneralScreen() {
         { color: '#ff0000', label: 'Red' },
         { color: '#00ff00', label: 'Green' },
         { color: '#0000ff', label: 'Blue' },
-        { color: '#ffff00', label: 'Yellow' },
         { color: '#ff00ff', label: 'Magenta' },
-        { color: '#00ffff', label: 'Cyan' },
-        { color: '#ff8000', label: 'Orange' },
     ];
 
     const getHexColorLabel = (color) => {

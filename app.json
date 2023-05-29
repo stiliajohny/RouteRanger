@@ -24,25 +24,18 @@
       "bundleIdentifier": "com.non-existing-organization.routeranger",
       "buildNumber": "1.0.0"
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.nonexistingorganization.routeranger"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png",
-      "name": "RouteRanger",
-      "description": "A route planning app for bikers",
-      "backgroundColor": "#ffffff",
-      "themeColor": "#ffffff"
-    },
     "extra": {
       "eas": {
         "projectId": "15be7936-b65f-4346-b793-5cc2969fc647"
       }
     },
-    "owner": "non-existing-organization"
+    "owner": "non-existing-organization",
+    "android": {
+      "package": "com.nonexistingorganization.routeranger"
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/15be7936-b65f-4346-b793-5cc2969fc647"
+    }
   }
 }

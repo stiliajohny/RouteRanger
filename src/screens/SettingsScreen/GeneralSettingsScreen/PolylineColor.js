@@ -1,38 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import GeneralScreenStyles from './GeneralScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
-import { ColorPicker } from 'react-native-color-picker';
+
 
 export default function DefaultPolylineColor({
         defaultPolylineColor,
         handlePolylineColorChange,
+        colorOptions,
         getHexColorLabel,
 }) {
-        const [colorPickerVisible, setColorPickerVisible] = useState(false);
-
-        const openColorPicker = () => {
-                setColorPickerVisible(true);
-        };
-
-        const closeColorPicker = () => {
-                setColorPickerVisible(false);
-        };
-
-        const handleColorSelection = (color) => {
-                handlePolylineColorChange(color);
-                closeColorPicker();
-        };
-
         return (
-                <>
-                        <TouchableOpacity style={GeneralScreenStyles.card} onPress={openColorPicker}>
-                                <Text style={GeneralScreenStyles.cardText}>Default Polyline Color</Text>
-                                <View style={GeneralScreenStyles.colorPickerContainer}>
-                                        <View
-                                                style={[GeneralScreenStyles.colorPickerButton, { backgroundColor: defaultPolylineColor }]}
+                <View style={GeneralScreenStyles.container}>
+                        <Text style={GeneralScreenStyles.cardText}>Default Polyline Color</Text>
+                        <View style={GeneralScreenStyles.toggleContainer}>
+                                {colorOptions.map((option) => (
+                                        <TouchableOpacity
+                                                key={option.color}
+                                                style={[
+                                                        GeneralScreenStyles.colorOption,
+                                                        { backgroundColor: option.color },
+                                                ]}
+                                                onPress={() => handlePolylineColorChange(option.color)}
                                         >
-                                                {defaultPolylineColor === 'transparent' && (
+
+                                                {defaultPolylineColor === option.color && (
                                                         <Ionicons
                                                                 name="md-checkmark"
                                                                 size={20}
@@ -40,20 +32,10 @@ export default function DefaultPolylineColor({
                                                                 style={GeneralScreenStyles.checkmarkIcon}
                                                         />
                                                 )}
-                                        </View>
-                                        <Text style={GeneralScreenStyles.hexColorText}>
-                                                {getHexColorLabel(defaultPolylineColor)}
-                                        </Text>
-                                </View>
-                        </TouchableOpacity>
+                                        </TouchableOpacity>
+                                ))}
+                        </View>
 
-                        {colorPickerVisible && (
-                                <ColorPicker
-                                        onColorSelected={handleColorSelection}
-                                        defaultColor={defaultPolylineColor}
-                                        style={{ flex: 1 }}
-                                />
-                        )}
-                </>
+                </View>
         );
 }

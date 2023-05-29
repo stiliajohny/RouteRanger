@@ -16,7 +16,7 @@ export default function GeneralScreen() {
     const [theme, setTheme] = useState('dark');
     const [keepMapNorth, setKeepMapNorth] = useState(false);
     const [showSpeedometer, setShowSpeedometer] = useState(true);
-    const [mapView, setMapView] = useState('3D');
+    const [mapView, setMapView] = useState('standard');
     const [defaultMapAltitude, setDefaultMapAltitude] = useState(100);
     const [defaultMapPitch, setDefaultMapPitch] = useState(45);
     const [defaultPolylineColor, setDefaultPolylineColor] = useState('#ff0000');

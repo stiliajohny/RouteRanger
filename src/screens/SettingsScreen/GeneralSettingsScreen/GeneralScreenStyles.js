@@ -2,31 +2,34 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
         container: {
-                flex: 1,
-                backgroundColor: '#f5f5f5',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '100%',
                 padding: 10,
+        },
+        cardText: {
+                fontSize: 18,
+                fontWeight: 'bold',
+        },
+        icon: {
+                width: 50,
+                height: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#ccc',
+        },
+        iconActive: {
+                width: 50,
+                height: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'black',
         },
         scrollContainer: {
                 flexGrow: 1,
                 alignItems: 'center',
                 justifyContent: 'center',
-        },
-        card: {
-                width: '90%',
-                backgroundColor: '#fff',
-                padding: 10,
-                marginVertical: 10,
-                borderRadius: 15,
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 2.84,
-                elevation: 2,
-        },
-        cardText: {
-                fontSize: 18,
-                fontWeight: 'bold',
-                marginBottom: 10,
         },
         sliderContainer: {
                 flexDirection: 'row',
@@ -65,14 +68,56 @@ export default StyleSheet.create({
                 flexDirection: 'row',
                 alignItems: 'center',
         },
-        iconContainer: {
-                flexDirection: 'row', // Added for map type icons
-        },
-        icon: {
-                marginRight: 10, // Added for map type icons
-        },
         iconItemContent: {
                 alignItems: 'center',
         },
-
+        iconText: {
+                color: 'white',
+                fontSize: 12,
+        },
+        iconContent: {
+                alignItems: 'center',
+                justifyContent: 'center',
+        },
+        textContainer: {
+                flex: 1,
+        },
+        toggle: {
+                flexDirection: 'row',
+                borderWidth: 1,
+                borderRadius: 15,
+                overflow: 'hidden',
+                width: 100,
+        },
+        toggleActive: {
+                width: 50,
+                height: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'black',
+        },
+        toggleInactive: {
+                width: 50,
+                height: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#ccc',
+        },
+        lineStyle: {
+                borderWidth: 1,
+                borderColor: 'black',
+                margin: 10,
+                width: '100%',
+        },
+        valueContainer: {
+                width: 40,
+                alignItems: 'center',
+        },
+        toggleContainer: {
+                flexDirection: 'row',
+                borderWidth: 1,
+                borderRadius: 15,
+                overflow: 'hidden',
+                alignItems: 'center', // to center items vertically
+        },
 });

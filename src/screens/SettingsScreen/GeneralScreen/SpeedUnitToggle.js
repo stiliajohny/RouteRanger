@@ -1,26 +1,31 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, TouchableOpacity, Text } from 'react-native';
 import GeneralScreenStyles from './GeneralScreenStyles';
 
 export default function SpeedUnitToggle({ isSpeedUnitKMH, setSpeedUnit }) {
         return (
                 <View style={GeneralScreenStyles.iconContainer}>
                         <TouchableOpacity onPress={() => setSpeedUnit(true)}>
-                                <Ionicons
-                                        name="md-speedometer"
-                                        size={24}
-                                        color={isSpeedUnitKMH ? 'black' : '#ccc'}
-                                        style={GeneralScreenStyles.icon}
-                                />
+                                <Text
+                                        style={{
+                                                color: isSpeedUnitKMH ? 'black' : '#ccc',
+                                                fontSize: 24,
+                                                ...GeneralScreenStyles.icon
+                                        }}
+                                >
+                                        KPH
+                                </Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => setSpeedUnit(false)}>
-                                <Ionicons
-                                        name="md-walk"
-                                        size={24}
-                                        color={!isSpeedUnitKMH ? 'black' : '#ccc'}
-                                        style={GeneralScreenStyles.icon}
-                                />
+                                <Text
+                                        style={{
+                                                color: !isSpeedUnitKMH ? 'black' : '#ccc',
+                                                fontSize: 24,
+                                                ...GeneralScreenStyles.icon
+                                        }}
+                                >
+                                        MPH
+                                </Text>
                         </TouchableOpacity>
                 </View>
         );

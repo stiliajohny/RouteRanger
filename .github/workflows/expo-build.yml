@@ -1,5 +1,6 @@
-on:
-  push
+name: Expo Build
+
+on: [push]
 
 jobs:
   build:

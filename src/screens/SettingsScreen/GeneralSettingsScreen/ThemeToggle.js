@@ -5,27 +5,16 @@ import GeneralScreenStyles from './GeneralScreenStyles';
 
 export default function ThemeToggle({ theme, toggleTheme }) {
         return (
-                <TouchableOpacity style={GeneralScreenStyles.card}>
+                <View style={GeneralScreenStyles.container}>
                         <Text style={GeneralScreenStyles.cardText}>Theme</Text>
-                        <View style={GeneralScreenStyles.iconContainer}>
-                                <TouchableOpacity onPress={toggleTheme}>
-                                        <Ionicons
-                                                name="md-moon"
-                                                size={24}
-                                                color={theme === 'dark' ? 'black' : '#ccc'}
-                                                style={GeneralScreenStyles.icon}
-                                        />
+                        <View style={GeneralScreenStyles.toggleContainer}>
+                                <TouchableOpacity onPress={toggleTheme} style={theme === 'dark' ? GeneralScreenStyles.iconActive : GeneralScreenStyles.icon}>
+                                        <Ionicons name="md-moon" size={24} color='white' />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={toggleTheme}>
-                                        <Ionicons
-                                                name="md-sunny"
-                                                size={24}
-                                                color={theme === 'light' ? 'black' : '#ccc'}
-                                                style={GeneralScreenStyles.icon}
-                                        />
+                                <TouchableOpacity onPress={toggleTheme} style={theme === 'light' ? GeneralScreenStyles.iconActive : GeneralScreenStyles.icon}>
+                                        <Ionicons name="md-sunny" size={24} color='white' />
                                 </TouchableOpacity>
                         </View>
-                </TouchableOpacity>
-
+                </View>
         );
 }

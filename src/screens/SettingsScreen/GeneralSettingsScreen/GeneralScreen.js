@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Switch, ScrollView, KeyboardAvoidingView } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 
-import DefaultMapAltitude from './DefaultMapAltitude';
-import DefaultMapPitch from './DefaultMapPitch';
-import DefaultPolylineColor from './DefaultPolylineColor';
-import DefaultPolylineThickness from './DefaultPolylineThickness';
+import DefaultMapAltitude from './MapAltitude';
+import DefaultMapPitch from './MapPitch';
+import DefaultPolylineColor from './PolylineColor';
+import DefaultPolylineThickness from './PolylineThickness';
 import GeneralScreenStyles from './GeneralScreenStyles';
 import MapViewToggle from './MapType.js';
 import SpeedUnitToggle from './SpeedUnitToggle';
 import ThemeToggle from './ThemeToggle';
+import MapDirectionToggle from './MapHeading';
+import SpeedometerToggle from './Speedometer';
 
 export default function GeneralScreen() {
     const [isSpeedUnitKMH, setSpeedUnit] = useState(true);
@@ -115,31 +117,31 @@ export default function GeneralScreen() {
         <KeyboardAvoidingView style={GeneralScreenStyles.container} behavior="height">
             <ScrollView contentContainerStyle={GeneralScreenStyles.scrollContainer}>
 
+                <Text style={GeneralScreenStyles.title}>General Settings</Text>
+                <View style={GeneralScreenStyles.lineStyle} />
+
                 {/* SpeedUnitToggle Card */}
                 <TouchableOpacity style={GeneralScreenStyles.card}>
-                    <Text style={GeneralScreenStyles.cardText}>Speed</Text>
                     <SpeedUnitToggle isSpeedUnitKMH={isSpeedUnitKMH} setSpeedUnit={setSpeedUnit} />
                 </TouchableOpacity>
 
                 {/* ThemeToggle Card */}
                 <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
 
-                { }
+                {/* Map Direction Card */}
                 <TouchableOpacity style={GeneralScreenStyles.card}>
-                    <Text style={GeneralScreenStyles.cardText}>Keep Map North</Text>
-                    <View style={GeneralScreenStyles.iconContainer}>
-                        <Switch value={keepMapNorth} onValueChange={setKeepMapNorth} />
-                    </View>
+                    <MapDirectionToggle keepMapNorth={keepMapNorth} setKeepMapNorth={setKeepMapNorth} />
                 </TouchableOpacity>
 
-                {/* Show Speedometer Card */}
+
+
+                {/* SpeedometerToggle Card */}
                 <TouchableOpacity style={GeneralScreenStyles.card}>
-                    <Text style={GeneralScreenStyles.cardText}>Show Speedometer</Text>
-                    <View style={GeneralScreenStyles.iconContainer}>
-                        <Switch value={showSpeedometer} onValueChange={setShowSpeedometer} />
-                    </View>
+                    <SpeedometerToggle showSpeedometer={showSpeedometer} setShowSpeedometer={setShowSpeedometer} />
                 </TouchableOpacity>
 
+                <Text style={GeneralScreenStyles.title}>Map Settings</Text>
+                <View style={GeneralScreenStyles.lineStyle} />
 
 
                 {/* Map View Card */}
@@ -148,9 +150,18 @@ export default function GeneralScreen() {
                 {/* Default Map Altitude Card */}
                 <DefaultMapAltitude defaultMapAltitude={defaultMapAltitude} setDefaultMapAltitude={setDefaultMapAltitude} />
 
-
                 {/* Default Map Pitch Card */}
                 <DefaultMapPitch defaultMapPitch={defaultMapPitch} setDefaultMapPitch={setDefaultMapPitch} />
+
+                <Text style={GeneralScreenStyles.title}>Line Settings</Text>
+                <View style={GeneralScreenStyles.lineStyle} />
+
+
+                {/* Default Polyline Thickness Card */}
+                <DefaultPolylineThickness
+                    defaultPolylineThickness={defaultPolylineThickness}
+                    setDefaultPolylineThickness={setDefaultPolylineThickness}
+                />
 
                 {/* Default Polyline Color Card */}
                 <DefaultPolylineColor
@@ -160,11 +171,7 @@ export default function GeneralScreen() {
                     getHexColorLabel={getHexColorLabel}
                 />
 
-                {/* Default Polyline Thickness Card */}
-                <DefaultPolylineThickness
-                    defaultPolylineThickness={defaultPolylineThickness}
-                    setDefaultPolylineThickness={setDefaultPolylineThickness}
-                />
+
             </ScrollView>
         </KeyboardAvoidingView>
     );

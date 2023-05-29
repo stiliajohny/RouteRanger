@@ -1,6 +1,7 @@
 **/ios/
 **/android/
 
+
 node_modules/
 .expo/
 dist/

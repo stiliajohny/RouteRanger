@@ -123,13 +123,12 @@ export default function GeneralScreen() {
                 </TouchableOpacity>
 
                 {/* ThemeToggle Card */}
-                <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                {/* <ThemeToggle theme={theme} toggleTheme={toggleTheme} /> */}
 
                 {/* Map Direction Card */}
                 <TouchableOpacity style={GeneralScreenStyles.card}>
                     <MapDirectionToggle keepMapNorth={keepMapNorth} setKeepMapNorth={setKeepMapNorth} />
                 </TouchableOpacity>
-
 
 
                 {/* SpeedometerToggle Card */}

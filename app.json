@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "RouteRanger",
+    "slug": "routeranger",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.routeranger.app",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "RouteRanger needs access to your location to show you where you are on the map.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "RouteRanger needs access to your location to show you where you are on the map.",
+        "NSLocationAlwaysUsageDescription": "RouteRanger needs access to your location to show you where you are on the map.",
+        "NSLocationUsageDescription": "RouteRanger needs access to your location to show you where you are on the map."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "userInterfaceStyle": "automatic"
+  }
+}

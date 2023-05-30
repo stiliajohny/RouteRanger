@@ -1,38 +1,18 @@
-import { StyleSheet } from 'react-native';
+const CommonStyles = {
 
-export const COLORS = {
-        dark: {
-                primary: '#3f51b5',
-                secondary: '#f50057',
-                text: '#ffffff',
-                background: '#1c1c1c',
-                button: '#ffffff',
-                buttonShadow: '#000000',
-                buttonText: '#000000',
+        lightTheme: {
+                background: '#FFFFFF',
+                text: '#000000',
+                buttonColor: '#007AFF',
+                shadowColor: '#808080',
+                // Add more colors as needed
         },
-        light: {
-                primary: '#3f51b5',
-                secondary: '#f50057',
-                text: '#333333',
-                background: '#F5F5F5',
-                button: '#ffffff',
-                buttonShadow: '#000000',
-                buttonText: '#000000',
+        darkTheme: {
+                background: '#000000',
+                text: '#FFFFFF',
+                buttonColor: '#FF2D55',
+                shadowColor: '#808080',
         },
 };
 
-export const getThemeStyles = (theme) => {
-        return StyleSheet.create({
-                background: {
-                        backgroundColor: COLORS[theme].background,
-                },
-                text: {
-                        color: COLORS[theme].text,
-                },
-                // Add more styles as needed
-        });
-};
-
-export default StyleSheet.create({
-        // Add common styles that are not theme-dependent
-});
+export default CommonStyles;
